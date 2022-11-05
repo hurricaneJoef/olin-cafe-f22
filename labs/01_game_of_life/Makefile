@@ -7,22 +7,29 @@ VVP_POST=-fst
 VIVADO=vivado -mode batch -source
 
 
-CONWAY_SRCS=hdl/conway_cell.sv hdl/adder_1.sv hdl/adder_n.sv
+CONWAY_SRCS=hdl/conway_cell.sv hdl/adder_1.sv hdl/adder_n.sv hdl/sum_8.sv
 DECODER_SRCS=hdl/decoder*.sv
+
 LED_ARRAY_SRCS=${DECODER_SRCS} hdl/led_array_driver.sv
 MAIN_SRCS=${CONWAY_SRCS} ${LED_ARRAY_SRCS} hdl/main.sv 
 
 # Look up .PHONY rules for Makefiles
 .PHONY: clean submission remove_solutions
 
-test_decoder_1_2: tests/test_decoder_1_2.sv ${DECODER_SRCS}
-	${IVERILOG} $^ -o test_decoder_1_2.bin && ${VVP} test_decoder_1_2.bin ${VVP_POST}
+test_sum_8: tests/test_sum_8.sv ${CONWAY_SRCS}
+	${IVERILOG} $^ -o test_sum_8.bin && ${VVP} test_sum_8.bin ${VVP_POST}
 
 test_decoder_2_4: tests/test_decoder_2_4.sv hdl/*.sv
 	${IVERILOG} $^ -o test_decoder_2_4.bin && ${VVP} test_decoder_2_4.bin ${VVP_POST}
 
 test_decoders: tests/test_decoders.sv ${DECODER_SRCS}
 	${IVERILOG} $^ -o test_decoders.bin && ${VVP} test_decoders.bin ${VVP_POST}
+
+test_decoder_1_to_2: tests/test_decoder_1_to_2.sv ${DECODER_SRCS}
+	${IVERILOG} $^ -o test_decoder_1_to_2.bin && ${VVP} test_decoder_1_to_2.bin ${VVP_POST}
+
+test_decoder_2_to_4: tests/test_decoder_2_to_4.sv ${DECODER_SRCS}
+	${IVERILOG} $^ -o test_decoder_2_to_4.bin && ${VVP} test_decoder_2_to_4.bin ${VVP_POST}
 
 test_conway_cell: tests/test_conway_cell.sv ${CONWAY_SRCS}
 	${IVERILOG} $^ -o test_conway_cell.bin && ${VVP} test_conway_cell.bin ${VVP_POST}

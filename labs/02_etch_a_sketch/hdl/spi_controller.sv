@@ -104,7 +104,8 @@ always_ff @(posedge clk) begin : spi_controller_fsm
           // not N-1 for this one. 
           WRITE_8_READ_8  : bit_counter <= 5'd8;
           WRITE_8_READ_16 : bit_counter <= 5'd16;
-          WRITE_8_READ_24 : bit_counter <= 5'd24;
+          WRITE_8_REA
+          D_24 : bit_counter <= 5'd24;
           default : bit_counter <= 0;
         endcase
       end

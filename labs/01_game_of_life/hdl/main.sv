@@ -60,7 +60,7 @@ logic [N*N-1:0] cells_0; // to make wiring the led driver easier.
 // its HDL. If you are worried about that, make a simple change to this block
 // to make sure that the FPGA is updating!
 always_comb begin : io_logic 
-    leds[0] = buttons[0] ^ buttons[1];
+    leds[0] = buttons[0] ^ ~buttons[1];
     leds[1] = buttons[0] & buttons[1];
     
     rgb[0] = ~( buttons[0] & ~buttons[1]);
@@ -234,7 +234,7 @@ always_ff @(posedge clk) begin : clocks_and_dividers // You can label any begin/
       end
       
   end
-end  
+end
 `ifdef SIMULATION
 always_comb step_game = 1; // Run at full speed if simulating.
 `else

@@ -61,6 +61,47 @@ initial begin
   b = 38273;
   #1 print_io();
 
+
+//test same signed items
+  a = 1;
+  b = 2;
+  #1 print_io();
+
+  a = 2;
+  b = 1;
+  #1 print_io();
+
+// test same signed negitive items
+  a = -2;
+  b = -1;
+  #1 print_io();
+
+  a = -2;
+  b = -2;
+  #1 print_io();
+
+  a = -1;
+  b = -2;
+  #1 print_io();
+
+// < with 0 and +
+  a = 1;
+  b = 0;
+  #1 print_io();
+
+  a = 0;
+  b = 1;
+  #1 print_io();
+
+//underflow it
+  a = 'hffffffff;
+  b = 'h7fffffff;
+  #1 print_io();
+
+  a = 'h7fffffff;
+  b = 'hffffffff;
+  #1 print_io();
+
   // Add more interesting tests here!
 
   

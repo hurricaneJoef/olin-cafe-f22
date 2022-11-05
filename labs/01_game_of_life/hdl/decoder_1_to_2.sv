@@ -4,6 +4,13 @@ input wire ena;
 input wire in;
 output logic [1:0] out;
 
+logic inb;
+always_comb begin   
+    inb = ~in;
+    out[0] = in & ena;
+    out[1] = inb & ena;
+end
+
 
 logic in_bar;
 always_comb begin

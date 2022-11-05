@@ -10,7 +10,7 @@ module adder_n(a, b, c_in, sum, c_out);
 
 parameter N = 2;
 
-input  wire [N-1:0] a, b;
+input wire [N-1:0] a, b;
 input wire c_in;
 output logic [N-1:0] sum;
 output wire c_out;

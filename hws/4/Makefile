@@ -14,7 +14,11 @@ waves_practice : test_practice
 	gtkwave practice.fst -a practice.gtkw
 
 # add targets for your tests of your adders and muxes here!
+test_add32 : add32.sv test_add32.sv
+	${IVERILOG} $^ -o test_add32.bin && ${VVP} test_add32.bin ${VVP_POST}
 
+test_mux32 : mux32.sv test_mux32.sv
+	${IVERILOG} $^ -o test_mux32.bin && ${VVP} test_mux32.bin ${VVP_POST}
 
 
 # Call this to clean up all your generated files
@@ -24,4 +28,4 @@ clean:
 
 # Call this to generate your submission zip file.
 submission:
-	zip submission.zip Makefile *.sv README.md *.pdf
+	zip submission.zip Makefile *.sv README.md *.pdf *.py

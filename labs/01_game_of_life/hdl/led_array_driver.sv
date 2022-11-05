@@ -29,6 +29,19 @@ initial begin
 end
 
 wire [N-1:0] x_decoded;
-decoder_3_to_8 COL_DECODER(ena, x, x_decoded);
+decoder_3_to_8 COL_DECODER(ena, x[2:0], x_decoded);
+logic [N-1:0] y_decoded;
+logic [N*N-1:0] anded_cells, wide_xd;
+always_comb wide_xd = {N{x_decoded[(N-1):0]}};
+always_comb anded_cells = wide_xd & cells;
+
+generate
+  genvar i;
+  for (i = 0; i<ROWS; i++) begin : row_iter
+    always_comb y_decoded[i] = |anded_cells[(((i+1)*COLS)-1):(i*COLS)];
+  end
+endgenerate
+always_comb cols = x_decoded;
+always_comb rows = ~y_decoded;
 
 endmodule
