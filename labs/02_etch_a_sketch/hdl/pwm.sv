@@ -26,13 +26,13 @@ output logic out;
 //counter start
 logic c_out;
 logic [N-1:0] counter, counter_next;
-adder_n #(.N(N)) addn(counter,0,1,counter_next,c_out);
+always_comb counter_next = counter+1;
 always_ff @(posedge clk) begin
   if(rst) counter <= 0;
   else if (step) counter <= counter_next;
 end
 logic out_raw;
-comparator_lt #(.N(N)) comp_lt(counter,duty,out_raw);
+always_comb out_raw = counter<duty;
 always_comb out = out_raw & ena;
 //counter end
 

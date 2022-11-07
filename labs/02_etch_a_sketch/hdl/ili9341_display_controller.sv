@@ -148,76 +148,16 @@ always_comb begin  : display_color_logic
     vram_rd_data_valid = 0;
     // Modify this section to have a different test pattern!
     // Draw a white border around every 16x16 area
-    if ((pixel_x[4:0] == 5'd31) | (pixel_y[4:0] == 5'd31)|(pixel_x[4:0] == 5'd0) | (pixel_y[4:0] == 5'd0)) begin
+    if ((pixel_x[4:0] == 5'd31) | (pixel_y[4:0] == 5'd31)|(pixel_x[4:0] == 5'd0) | (pixel_y[4:0] == 5'd0)) begin    
       pixel_color = WHITE;
     end
     else begin
-      case({pixel_x[4:1], pixel_y[4:1]})
-        8'h00: pixel_color = 16'h366c;
-        8'h01: pixel_color = 16'haf36;
-        8'h02: pixel_color = 16'h0509;
-        8'h03: pixel_color = 16'h072a;
-        8'h04: pixel_color = 16'h0000;
-        8'h05: pixel_color = 16'h0000;
-        8'h06: pixel_color = 16'h0000;
-        8'h07: pixel_color = 16'h0000;
-        8'h08: pixel_color = 16'h34eb;
-        8'h09: pixel_color = 16'h076b;
-        8'h0a: pixel_color = 16'h0708;
-        8'h0b: pixel_color = 16'hbed8;
-        8'h0c: pixel_color = 16'h0000;
-        8'h0d: pixel_color = 16'h0000;
-        8'h0e: pixel_color = 16'h0000;
-        8'h0f: pixel_color = 16'h0000;
-        8'h10: pixel_color = 16'he71c;
-        8'h11: pixel_color = 16'h26ed;
-        8'h12: pixel_color = 16'h0629;
-        8'h13: pixel_color = 16'h34eb;
-        8'h14: pixel_color = 16'h0000;
-        8'h15: pixel_color = 16'h0000;
-        8'h16: pixel_color = 16'h0000;
-        8'h17: pixel_color = 16'h0000;
-        8'h18: pixel_color = 16'haf36;
-        8'h19: pixel_color = 16'h068b;
-        8'h1a: pixel_color = 16'h052a;
-        8'h1b: pixel_color = 16'h26cc;
-        8'h1c: pixel_color = 16'h0000;
-        8'h1d: pixel_color = 16'h0000;
-        8'h1e: pixel_color = 16'h0000;
-        8'h1f: pixel_color = 16'h0000;
-        8'h20: pixel_color = 16'h86d3;
-        8'h21: pixel_color = 16'h0509;
-        8'h22: pixel_color = 16'haef5;
-        8'h23: pixel_color = 16'h076b;
-        8'h24: pixel_color = 16'h066a;
-        8'h25: pixel_color = 16'h86d2;
-        8'h26: pixel_color = 16'h072c;
-        8'h27: pixel_color = 16'h06a9;
-        8'h28: pixel_color = 16'h0708;
-        8'h29: pixel_color = 16'h04e8;
-        8'h2a: pixel_color = 16'h7ed1;
-        8'h2b: pixel_color = 16'h04c6;
-        8'h2c: pixel_color = 16'h05c5;
-        8'h2d: pixel_color = 16'h0647;
-        8'h2e: pixel_color = 16'h372d;
-        8'h2f: pixel_color = 16'h0667;
-        8'h30: pixel_color = 16'h0668;
-        8'h31: pixel_color = 16'h8f13;
-        8'h32: pixel_color = 16'h072a;
-        8'h33: pixel_color = 16'h0645;
-        8'h34: pixel_color = 16'h05a0;
-        8'h35: pixel_color = 16'h0646;
-        8'h36: pixel_color = 16'h0669;
-        8'h37: pixel_color = 16'hbf58;
-        8'h38: pixel_color = 16'h0649;
-        8'h39: pixel_color = 16'h9f15;
-        8'h3a: pixel_color = 16'h06a9;
-        8'h3b: pixel_color = 16'h05c2;
-        8'h3c: pixel_color = 16'h0668;
-        8'h3d: pixel_color = 16'h56ef;
-        8'h3e: pixel_color = 16'h46ee;
-        8'h3f: pixel_color = 16'h8733;
-      endcase
+      if(((pixel_x[2]^pixel_x[1]) & (~pixel_y[3]&pixel_y[2]))|(((pixel_x[2]^pixel_x[3])&pixel_y[3])&((pixel_x[2]^pixel_x[1]^~pixel_y[2])|(pixel_y[2]^pixel_y[1])))) begin
+        pixel_color = BLACK;
+      end
+      else begin
+        pixel_color = GREEN;
+      end
     end
   end else begin
     // Read the current color from video RAM.

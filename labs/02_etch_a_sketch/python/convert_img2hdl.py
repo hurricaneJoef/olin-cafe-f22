@@ -10,5 +10,5 @@ img  = """ 0x366c, 0xaf36, 0x0509, 0x072a, 0x0000, 0x0000, 0x0000, 0x0000, 0x34e
 lmg = img.split()
 st = ""
 for i, pixel in enumerate(lmg):
-    st = st + format(i,'#04x').replace("0x","8'h")+": pixel_color = " + pixel.replace('0x',"16'h").removesuffix(',')+";\n"
+    st = st + format(i,'#04x').replace("0x","8'h")+": $cast(pixel_color, " + pixel.replace('0x',"16'h").removesuffix(',')+");\n"
 print(st)

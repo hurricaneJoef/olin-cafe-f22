@@ -74,13 +74,30 @@ always_ff @(posedge clk) begin : spi_controller_fsm
   end else begin
     case(state)
       S_IDLE : begin
+        if(i_valid) begin
+          rx_data <= 0;
+          tx_data <= i_data;
+          o_data <= 0;
+          o_valid <= 0;
+          i_ready <= 0;
+          state <= S_TXING;
+          case (spi_mode)
+            WRITE_8, WRITE_8_READ_8,WRITE_8_READ_16,WRITE_8_READ_24 : begin
+              bit_counter <= 5'd7;
+            end
+            WRITE_16 : begin
+              bit_counter <= 5'd15;
+            end
+            default: state<=S_ERROR;
+          endcase
+        end
       end
       S_TXING : begin
         sclk <= ~sclk;
         // positive edge logic
         if(~sclk) begin
         end else begin // negative edge logic
-          
+
           if(bit_counter != 0) begin
             bit_counter <= bit_counter - 1;
           end else begin
@@ -104,10 +121,32 @@ always_ff @(posedge clk) begin : spi_controller_fsm
           // not N-1 for this one. 
           WRITE_8_READ_8  : bit_counter <= 5'd8;
           WRITE_8_READ_16 : bit_counter <= 5'd16;
-          WRITE_8_REA
-          D_24 : bit_counter <= 5'd24;
+          WRITE_8_READ_24 : bit_counter <= 5'd24;
           default : bit_counter <= 0;
         endcase
+      end
+      S_RXING : begin
+        sclk <= ~sclk;
+        if(~sclk) begin
+          rx_data[bit_counter[4:0]] <= miso;
+        end else begin // negative edge logic
+          if(bit_counter != 0) begin
+            bit_counter <= bit_counter - 1;
+          end else begin
+            state <= S_RX_DONE;
+          end
+        end
+      end
+      S_RX_DONE : begin
+        state <= S_IDLE;
+        i_ready <= 1;
+        case(spi_mode)
+          WRITE_8_READ_8: o_data[7:0] <= rx_data[7:0]; 
+          WRITE_8_READ_16: o_data[15:0] <=rx_data[15:0];
+          WRITE_8_READ_24: o_data <= rx_data[23:0];
+          default: o_data <= 0;
+        endcase
+        o_valid<=1;
       end
       default : state <= S_ERROR;
     endcase

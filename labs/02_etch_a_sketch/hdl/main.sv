@@ -72,7 +72,7 @@ MMCME2_BASE_inst (
 // Touch signals
 touch_t touch0, touch1;
 
-`define LAB_PART_1 // Uncomment once you start working on the next parts.
+//`define LAB_PART_1 // Uncomment once you start working on the next parts.
 
 /* ------------------------------------------------------------------------- */
 /* -- Part 1 - Intro to Sequential Logic on FPGAs                         -- */
@@ -114,7 +114,7 @@ pwm #(.N(PWM_WIDTH)) PWM_LED1 (
   .out(leds[1])
 );
 
-`define LAB_PART_1
+//`define LAB_PART_1
 always_comb begin: led_pwm_muxes
 `ifdef LAB_PART_1
   // For part 1, use the output of the triangle generators.

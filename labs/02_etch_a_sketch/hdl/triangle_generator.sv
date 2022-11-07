@@ -13,7 +13,7 @@ always_comb internal_rst = rst ;
 //counter start
 logic c_out;
 logic [N:0] counter, counter_next;
-adder_n #(.N(N+1)) addn(counter,1,&counter[N-1:0],counter_next,c_out);
+always_comb counter_next = counter+ 1+ &counter[N-1:0];
 always_ff @(posedge clk) begin
   if(internal_rst) counter <= 0;
   else if (ena) counter <= counter_next;
