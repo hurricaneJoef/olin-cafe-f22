@@ -42,6 +42,11 @@ memories/ili9341_init.memh: generate_memories.py
 memories/fibonacci.memh: generate_memories.py
 	./generate_memories.py --memory fibonacci --out memories/fibonacci.memh
 
+test_main: tests/test_main.sv hdl/main.sv ${MAIN_SRCS}
+	${IVERILOG} $^ -o test_main.bin && ${VVP} test_main.bin ${VVP_POST}
+waves_main: test_main
+	gtkwave main.fst -a tests/main.gtkw
+
 main.bit: $(MAIN_SRCS)
 	@echo "########################################"
 	@echo "#### Building FPGA bitstream        ####"
@@ -60,3 +65,7 @@ program_fpga_digilent: main.bit
 	@echo "########################################"
 	djtgcfg enum
 	djtgcfg prog -d CmodA7 -i 0 -f main.bit
+
+clean:
+	rm -f *.bin *.vcd *.fst vivado*.log *.jou vivado*.str *.log *.checkpoint *.bit *.html *.xml
+	rm -rf .Xil

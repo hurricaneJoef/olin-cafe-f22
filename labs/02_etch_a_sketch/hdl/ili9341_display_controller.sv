@@ -148,6 +148,19 @@ always_comb begin  : display_color_logic
     vram_rd_data_valid = 0;
     // Modify this section to have a different test pattern!
     // Draw a white border around every 16x16 area
+    
+    if ((pixel_x[4:0] == 5'd16) | (pixel_y[4:0] == 5'd16)) begin
+      pixel_color = WHITE;
+    end
+    else begin
+      case({pixel_x[4], pixel_y[4]})
+        2'b00: pixel_color = RED;
+        2'b01: pixel_color = GREEN;
+        2'b10: pixel_color = BLUE;
+        2'b11: pixel_color = BLACK;
+      endcase
+    end//*/
+    /*
     if ((pixel_x[4:0] == 5'd31) | (pixel_y[4:0] == 5'd31)|(pixel_x[4:0] == 5'd0) | (pixel_y[4:0] == 5'd0)) begin    
       pixel_color = WHITE;
     end
@@ -158,7 +171,7 @@ always_comb begin  : display_color_logic
       else begin
         pixel_color = GREEN;
       end
-    end
+    end//*/
   end else begin
     // Read the current color from video RAM.
     vram_rd_addr = pixel_y*DISPLAY_WIDTH + {8'd0, pixel_x};
