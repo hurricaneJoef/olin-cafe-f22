@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Wed Oct 19 20:12:05 2022
+# Process ID: 215524
+# Current directory: /home/joseph/Documents/comparch/olin-cafe-f22/labs/01_game_of_life
+# Command line: vivado -mode batch -source program.tcl
+# Log file: /home/joseph/Documents/comparch/olin-cafe-f22/labs/01_game_of_life/vivado.log
+# Journal file: /home/joseph/Documents/comparch/olin-cafe-f22/labs/01_game_of_life/vivado.jou
+# Running On: omeng143, OS: Linux, CPU Frequency: 2700.000 MHz, CPU Physical cores: 6, Host memory: 16361 MB
+#-----------------------------------------------------------
+source program.tcl

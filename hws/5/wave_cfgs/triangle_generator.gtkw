@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Thu Oct 27 03:07:48 2022
+[*]
+[dumpfile] "/home/joseph/Documents/comparch/olin-cafe-f22/hws/5/triangle_generator.fst"
+[dumpfile_mtime] "Thu Oct 27 03:06:24 2022"
+[dumpfile_size] 1529
+[savefile] "/home/joseph/Documents/comparch/olin-cafe-f22/hws/5/wave_cfgs/triangle_generator.gtkw"
+[timestart] 0
+[size] 1832 1016
+[pos] -89 -89
+*-16.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_triangle_generator.
+[sst_width] 233
+[signals_width] 382
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+test_triangle_generator.UUT.clk
+@8022
+test_triangle_generator.UUT.counter[4:0]
+test_triangle_generator.UUT.out[3:0]
+@28
+test_triangle_generator.UUT.rst
+@200
+-this is vestigial code it is the same as rst
+@28
+test_triangle_generator.UUT.internal_rst
+[pattern_trace] 1
+[pattern_trace] 0

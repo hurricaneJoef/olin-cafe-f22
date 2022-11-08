@@ -11,6 +11,28 @@ output logic out;
 
 
 logic counter_comparator;
+wire [N-1:0] counter_pp;
+
+adder_n #(.N(N)) ADDER(
+  .a(counter), .b(1), .c_in(1'b0),
+  .sum(counter_pp)
+);
+
+// Reset or gate
+logic local_reset;
+always_comb local_reset = rst | counter_comparator;
+
+// Create a Register
+logic [N-1:0] counter; // our q
+always_ff @(posedge clk) begin
+  if(local_reset) begin
+    counter <= 0;
+  end else if(ena) begin
+    counter <= counter_pp;
+  end
+  // this always exists:
+  // else counter <= counter;
+end
 
 logic interal_rst; always_comb interal_rst = rst|out;
 

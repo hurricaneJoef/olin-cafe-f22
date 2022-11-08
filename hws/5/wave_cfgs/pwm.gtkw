@@ -1,0 +1,38 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Thu Oct 27 03:04:49 2022
+[*]
+[dumpfile] "/home/joseph/Documents/comparch/olin-cafe-f22/hws/5/pwm.fst"
+[dumpfile_mtime] "Thu Oct 27 03:00:37 2022"
+[dumpfile_size] 16245
+[savefile] "/home/joseph/Documents/comparch/olin-cafe-f22/hws/5/wave_cfgs/pwm.gtkw"
+[timestart] 51430000
+[size] 1832 1016
+[pos] -89 -89
+*-23.418116 55460000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_pwm.
+[treeopen] test_pwm.PULSE_GEN.
+[sst_width] 233
+[signals_width] 140
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+test_pwm.PWM.clk
+@200
+-pwm
+@22
+test_pwm.PWM.counter[3:0]
+@28
+test_pwm.PWM.step
+test_pwm.PWM.out_raw
+test_pwm.PWM.out
+test_pwm.PWM.ena
+@200
+-pulse
+@22
+test_pwm.PULSE_GEN.counter[6:0]
+@28
+test_pwm.PULSE_GEN.out
+test_pwm.PULSE_GEN.rst
+[pattern_trace] 1
+[pattern_trace] 0
