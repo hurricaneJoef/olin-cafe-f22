@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+#!/usr/bin/env python3
 import numpy as np
 
 SECONDS_IN_A_DAY = 24*60*60*1.0
@@ -22,5 +21,4 @@ if __name__ == "__main__":
         p_f_system = N*p_f_individual
         MTBF_individual = 1/p_f_individual
         MTBF_system = 1/p_f_system
-
-        print(f"f_c = {f_c:e} Hz, p(f) = {p_f_individual:e}, MTBF_system = {MTBF_individual/SECONDS_IN_A_YEAR:8.1f} years")
+        print(f"f_c = {f_c:e} Hz, p(f) = {p_f_individual:e}, MTBF_system = {MTBF_system/SECONDS_IN_A_YEAR:8.1f} years")

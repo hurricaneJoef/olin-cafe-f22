@@ -21,4 +21,3 @@ always_comb out = a[N-1] & (b_[N-1] | sum[N-1]) | sum[N-1]& b_[N-1];//og :sum[N-
 
 endmodule
 
-

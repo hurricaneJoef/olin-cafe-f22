@@ -85,8 +85,8 @@ always @(a or b or control) begin
 
   // Comment out this check if you didn't have time to do the overflow logic.
   if(overflow !== correct_overflow) begin
-    $display("@%t: Error: OVERFLOW  : a = %h, b = %h, result = %h, overflow = %b, should be %b", $time, a, b, result, overflow, correct_overflow);
-    errors = errors + 1;
+   $display("@%t: Error: OVERFLOW  : a = %h, b = %h, result = %h, overflow = %b, should be %b", $time, a, b, result, overflow, correct_overflow);
+   errors = errors + 1;
   end
   
   if(result !== correct_result) begin
