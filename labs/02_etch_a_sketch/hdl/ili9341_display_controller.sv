@@ -148,7 +148,7 @@ always_comb begin  : display_color_logic
     vram_rd_data_valid = 0;
     // Modify this section to have a different test pattern!
     // Draw a white border around every 16x16 area
-    
+    /*
     if ((pixel_x[4:0] == 5'd16) | (pixel_y[4:0] == 5'd16)) begin
       pixel_color = WHITE;
     end
@@ -160,12 +160,12 @@ always_comb begin  : display_color_logic
         2'b11: pixel_color = BLACK;
       endcase
     end//*/
-    /*
-    if ((pixel_x[4:0] == 5'd31) | (pixel_y[4:0] == 5'd31)|(pixel_x[4:0] == 5'd0) | (pixel_y[4:0] == 5'd0)) begin    
+    //*
+    if ((&pixel_x[5:0]) | (&pixel_y[5:0])|(~|pixel_x[5:0]) | (~|pixel_y[5:0])) begin    
       pixel_color = WHITE;
     end
     else begin
-      if(((pixel_x[2]^pixel_x[1]) & (~pixel_y[3]&pixel_y[2]))|(((pixel_x[2]^pixel_x[3])&pixel_y[3])&((pixel_x[2]^pixel_x[1]^~pixel_y[2])|(pixel_y[2]^pixel_y[1])))) begin
+      if(((pixel_x[4]^pixel_x[3]) & (~pixel_y[5]&pixel_y[4]))|(((pixel_x[4]^pixel_x[5])&pixel_y[5])&((pixel_x[4]^pixel_x[3]^~pixel_y[4])|(pixel_y[4]^pixel_y[3])))) begin
         pixel_color = BLACK;
       end
       else begin
