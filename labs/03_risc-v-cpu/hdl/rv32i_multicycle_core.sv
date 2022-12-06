@@ -162,17 +162,39 @@ always_comb begin : instruction_decoder
 
   funct3 = op[2] ? 3'd0 : instruction[14:12]; // always around except for u and j and some others
 
-  funct7 = &(op ~^ 7'b0110011) ? instruction[31:25] : 7'd0;// only r types have this so same it for them
+  funct7 = (&({op[6],op[4:0]} ~^ 6'b010011))&(op[5] | &(funct3 ~^ 3'b101)) ? instruction[31:25] : 7'd0;// only r types have this so same it for them
 
   rs1 = ~op[2]&(op[6]|op[4]) ? instruction[19:15] :  5'd0;
   rs2 = op[5]&~op[2] ? instruction[24:20] : 5'd0;
   rd  = op[5]&~(op[2]|op[4]) ? 5'd0 : instruction[11:7];
 end
 
+always_comb begin : alu_decode
+  case({funct7[5],funct3})
+  //4'b0000:alu_control = ALU_ADD;
+  4'b1000:alu_control = ALU_SUB;
+  4'b0001:alu_control = ALU_SLL;
+  4'b0010:alu_control = ALU_SLT;
+  4'b0011:alu_control = ALU_SLTU;
+  4'b0100:alu_control = ALU_XOR;
+  4'b0101:alu_control = ALU_SRL;
+  4'b1101:alu_control = ALU_SRA;
+  4'b0110:alu_control = ALU_OR;
+  4'b0111:alu_control = ALU_AND;
+  default :alu_control = ALU_ADD;
+  endcase
+end
+
+// end alu contols
+
+always_ff begin : control_cl
+  
+end
 
 
-// alu contols
+always_ff @(posedge clk) begin : control_fsm
 
+end
 
 
 endmodule
