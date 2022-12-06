@@ -164,7 +164,7 @@ always_comb begin : instruction_decoder
 
   funct7 = &(op ~^ 7'b0110011) ? instruction[31:25] : 7'd0;// only r types have this so same it for them
 
-  rs1 = ~op[2]&(op[3]^op[4]) ? instruction[19:15] :  5'd0;
+  rs1 = ~op[2]&(op[6]|op[4]) ? instruction[19:15] :  5'd0;
   rs2 = op[5]&~op[2] ? instruction[24:20] : 5'd0;
   rd  = op[5]&~(op[2]|op[4]) ? 5'd0 : instruction[11:7];
 end
