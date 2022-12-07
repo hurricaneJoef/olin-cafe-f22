@@ -1,0 +1,199 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Mon Nov 14 19:05:54 2022
+| Host         : omeng143 running 64-bit Ubuntu 20.04.5 LTS
+| Command      : report_timing -sort_by group -max_paths 100 -path_type summary -file timing.log -verbose
+| Design       : main
+| Device       : 7a15t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+----------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Startpoint                     Endpoint                       Slack(ns)     
+----------------------------------------------------------------------------
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ENBWREN    8.270         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ENBWREN    8.273         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[14]
+                                                              8.423         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[14]
+                                                              8.427         
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[16]/D         8.478         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[15]
+                                                              8.493         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[15]
+                                                              8.548         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[14]
+                                                              8.548         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[15]
+                                                              8.557         
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[15]/D         8.557         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[13]
+                                                              8.563         
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[12]/D         8.673         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[13]
+                                                              8.687         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[12]
+                                                              8.706         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[11]
+                                                              8.706         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ENBWREN       8.711         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ENBWREN       8.724         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[12]
+                                                              8.732         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[12]
+                                                              8.749         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[14]
+                                                              8.764         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ENBWREN       8.776         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ENBWREN       8.784         
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[13]/D         8.863         
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[14]/D         8.881         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[12]
+                                                              8.897         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[13]
+                                                              8.899         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[13]
+                                                              8.900         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[14]
+                                                              8.910         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[14]
+                                                              8.917         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[10]
+                                                              8.921         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[15]
+                                                              8.921         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[11]
+                                                              9.034         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[13]
+                                                              9.055         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[12]
+                                                              9.069         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[12]
+                                                              9.084         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[13]
+                                                              9.087         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[11]
+                                                              9.200         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[9]
+                                                              9.223         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[10]
+                                                              9.255         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[11]
+                                                              9.287         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[10]
+                                                              9.296         
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[11]/D         9.302         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[10]
+                                                              9.337         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[8]
+                                                              9.338         
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[10]/D         9.355         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[11]
+                                                              9.371         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[11]
+                                                              9.433         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[8]
+                                                              9.548         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[8]
+                                                              9.555         
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[7]
+                                                              9.562         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[9]
+                                                              9.565         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[9]
+                                                              9.567         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[9]
+                                                              9.569         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[10]
+                                                              9.633         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[10]
+                                                              9.688         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[8]
+                                                              9.747         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[8]
+                                                              9.890         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[9]
+                                                              9.902         
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[7]
+                                                              9.904         
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[9]
+                                                              9.906         
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[7]
+                                                              9.908         
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[6]
+                                                              9.916         
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[7]
+                                                              10.056        
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[8]
+                                                              10.082        
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_mux_sel_b_pos_0/D 10.162        
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[9]/D          10.188        
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[8]/D          10.202        
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[7]
+                                                              10.245        
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[6]
+                                                              10.258        
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[6]
+                                                              10.262        
+ILI9341/pixel_y_reg[2]/C       VRAM/ram_reg_mux_sel_b_pos_1/D 10.307        
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_0__0/ADDRBWRADDR[6]
+                                                              10.313        
+VRAM/ram_reg_0_5/CLKBWRCLK     ILI9341/SPI0/tx_data_reg[7]/D  10.346        
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[7]
+                                                              10.397        
+VRAM/ram_reg_0_5/CLKBWRCLK     ILI9341/SPI0/tx_data_reg[5]/D  10.494        
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_5/ADDRBWRADDR[6]
+                                                              10.599        
+ILI9341/pixel_y_reg[1]/C       VRAM/ram_reg_1_5__0/ADDRBWRADDR[6]
+                                                              10.654        
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[7]/D          10.673        
+VRAM/ram_reg_0_5/CLKBWRCLK     ILI9341/SPI0/tx_data_reg[6]/D  10.747        
+FT6206/touch0_reg[y][1]/C      vram_wr_addr_reg[6]/D          10.864        
+ILI9341/pixel_y_reg[6]/C       ILI9341/SPI0/tx_data_reg[12]/D 10.867        
+ILI9341/pixel_y_reg[6]/C       ILI9341/SPI0/tx_data_reg[8]/D  11.034        
+ILI9341/pixel_y_reg[0]/C       VRAM/ram_reg_1_0/ADDRBWRADDR[5]
+                                                              11.061        
+VRAM/ram_reg_0_0/CLKBWRCLK     ILI9341/SPI0/tx_data_reg[2]/D  11.071        
+VRAM/ram_reg_0_0/CLKBWRCLK     ILI9341/SPI0/tx_data_reg[4]/D  11.073        
+VRAM/ram_reg_0_0/CLKBWRCLK     ILI9341/SPI0/tx_data_reg[3]/D  11.078        
+ILI9341/pixel_y_reg[6]/C       ILI9341/SPI0/tx_data_reg[0]/D  11.180        
+ILI9341/pixel_y_reg[6]/C       ILI9341/SPI0/tx_data_reg[1]/D  11.214        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[18]/CE
+                                                              11.377        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[21]/CE
+                                                              11.377        
+ILI9341/pixel_y_reg[0]/C       VRAM/ram_reg_0_0/ADDRBWRADDR[5]
+                                                              11.403        
+ILI9341/pixel_y_reg[0]/C       VRAM/ram_reg_0_5/ADDRBWRADDR[5]
+                                                              11.407        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[13]/CE
+                                                              11.419        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[14]/CE
+                                                              11.419        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[16]/CE
+                                                              11.419        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[17]/CE
+                                                              11.419        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[19]/CE
+                                                              11.419        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[20]/CE
+                                                              11.419        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[0]/CE
+                                                              11.530        
+ILI9341/cfg_delay_counter_reg[10]/C
+                               ILI9341/cfg_delay_counter_reg[11]/CE
+                                                              11.530        
+
+
+

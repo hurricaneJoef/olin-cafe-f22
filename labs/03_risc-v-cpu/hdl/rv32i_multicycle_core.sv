@@ -191,9 +191,42 @@ always_ff begin : control_cl
   
 end
 
+enum logic[3:0]{
+  S_FETCH,
+  S_DECODE,
+  S_JAL,
+  S_EXE_I,
+  S_EXE_R,
+  S_MEMADDR,
+  S_BRANCH,
+  S_WRBK,
+  S_MEMWR,
+  S_MEMRD,
+  S_MEMWB
+} state
+
 
 always_ff @(posedge clk) begin : control_fsm
-
+  if(rst) begin
+    
+  end
+  else begin
+    case(state)
+    S_FETCH : state <= S_DECODE;
+    S_DECODE begin
+      
+    end
+    S_JAL
+    S_EXE_I
+    S_EXE_R
+    S_MEMADDR
+    S_BRANCH
+    S_WRBK
+    S_MEMWR
+    S_MEMRD
+    S_MEMWB
+    endcase
+  end
 end
 
 

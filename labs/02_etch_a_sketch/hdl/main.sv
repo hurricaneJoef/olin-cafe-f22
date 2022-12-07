@@ -149,7 +149,7 @@ ili9341_display_controller ILI9341(
   .vram_rd_addr(vram_rd_addr),
   .vram_rd_data(vram_rd_data),
   // !!! NOTE - change enable_test_pattern to zero once you start implementing the video ram !!!
-  .enable_test_pattern(1'b0) 
+  .enable_test_pattern(1'd0) 
 );
 
 /* ------------------------------------------------------------------------- */
@@ -222,7 +222,7 @@ always_ff @( posedge clk ) begin : vramfsm
       end
     end
     SV_RST: begin
-      vram_wr_ena <=1;
+      vram_wr_ena <=1'd1;
       vram_wr_addr <= counter;
       vram_wr_data <= BLACK;
       counter <= counter-1;
