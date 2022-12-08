@@ -14,10 +14,10 @@ sw t0, -12(sp)
 addi t0, t0, 17
 sw t0, -16(sp)
 # Then write them back into the global memory and instruction memory.
-lw t0, -16(sp)
+lw t0, -16(sp) 
 sw t0, 0(gp)
 sw t0, 120(zero)
-lw t1, -12(sp)
+lw t1, -12(sp) // pc 56
 sw t1, 4(gp)
 sw t1, 124(zero)
 lw t2, -8(sp)
