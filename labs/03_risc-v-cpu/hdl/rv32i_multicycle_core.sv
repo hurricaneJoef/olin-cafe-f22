@@ -47,12 +47,12 @@ register #(.N(32)) PC_OLD_REGISTER(
 
 // Register file
 logic reg_write;
-logic [4:0] rd, rs1, rs2;
+logic [4:0] rd, rs1, rs2, rd_addr;
 logic [31:0] rfile_wr_data;
 wire [31:0] reg_data1, reg_data2;
 register_file REGISTER_FILE(
   .clk(clk), 
-  .wr_ena(reg_write), .wr_addr(rd), .wr_data(rfile_wr_data),
+  .wr_ena(reg_write), .wr_addr(rd_addr), .wr_data(rfile_wr_data),
   .rd_addr0(rs1), .rd_addr1(rs2),
   .rd_data0(reg_data1), .rd_data1(reg_data2)
 );
@@ -129,7 +129,7 @@ end
 //b
 enum logic [1:0] {FOUR, IMM_EXT, RS2_DATA_REG} alu_b_slt;
 always_comb begin : alu_b_mux
-  case(alu_a_slt)
+  case(alu_b_slt)
     FOUR : src_b = 32'd4;
     IMM_EXT : src_b = 0'bxxx; 
     RS1_DATA_REG : src_b = reg_data2;
@@ -140,7 +140,7 @@ end
 // alu result mux
 enum logic [1:0] {OLD_RESULT, RESULT, MEMORY} result_slt;
 always_comb begin : result_mux
-  case(alu_a_slt)
+  case(result_slt)
     OLD_RESULT : result = alu_result_old;
     RESULT : result = alu_result; 
     MEMORY : result = memory_data;
@@ -157,7 +157,7 @@ end
 logic [6:0] op;
 logic [2:0] funct3;
 logic [6:0] funct7;
-always_comb begin : instruction_decoder
+/*always_comb begin : instruction_decoder
   op = instruction[6:0];
 
   funct3 = op[2] ? 3'd0 : instruction[14:12]; // always around except for u and j and some others
@@ -169,6 +169,7 @@ always_comb begin : instruction_decoder
   rd  = op[5]&~(op[2]|op[4]) ? 5'd0 : instruction[11:7];
 end
 
+/*
 always_comb begin : alu_decode
   case({funct7[5],funct3})
   //4'b0000:alu_control = ALU_ADD;
@@ -183,12 +184,217 @@ always_comb begin : alu_decode
   4'b0111:alu_control = ALU_AND;
   default :alu_control = ALU_ADD;
   endcase
-end
+end//*/
 
 // end alu contols
+logic [31:0] imm;
+always_comb begin : control_cl
+  op = instruction[6:0];
+  funct3 = instruction[14:12];
+  funct7 = instruction[31:25];
+  rs1 = instruction[19:15];
+  rs2 = instruction[24:20];
+  rd  = instruction[11:7];
+  case(state)
+  S_FETCH,S_RST: imm = 32'b0;
+  default :begin
+    case(op)
+    OP_LTYPE :  begin
+      case(funct3)
+      default: imm = {{20{instruction[31]}},instruction[31:20]};
+      endcase
+    end
+    OP_ITYPE: begin
+      imm = {{20{instruction[31]}},instruction[31:20]};
+    end
+    OP_STYPE: begin
+      imm = {{15{instruction[31]}},instruction[31:25],rd};
+    end
+    OP_BTYPE: begin
+      imm = {{20{funct3[1] ? 0 : instruction[31]}},instruction[7],instruction[30:25],instruction[11:8],1'b0};
+    end
+    OP_JAL: begin 
+      imm = {{12{funct3[1] ? 0 : instruction[31]}},instruction[7],instruction[30:25],instruction[11:8],1'b0};
+    end
+    default: begin
+      imm = 32'b0;
+    end
+    endcase
+  end
+  endcase
 
-always_ff begin : control_cl
+  case(state)
+  S_FETCH : begin
+    mem_wr_ena = 1'b0;
+    addr_slt = MEM_SRC_PC;
+    IR_write = 1'b1;
+    rd_addr = 5'b0;
+
+    // set alu to creat pc+4
+    alu_a_slt = CURRENT_PC;
+    alu_b_slt = FOUR;
+    alu_control = ALU_ADD;
+
+    // set up pc+4 in next pc
+    result_slt = RESULT;
+    // and get ready to bring it into the pc counter
+    PC_ena = 1'b1;
+  end
+  S_DECODE : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = 5'b0;
+    //setup for j and b
+    alu_a_slt = OLD_PC_REG;
+    alu_b_slt = imm;
+    alu_control = ALU_ADD;
+    case(op)
+    OP_LTYPE : next_state = S_MEMADDR;
+    OP_ITYPE : next_state = S_EXE_I;
+    //OP_AUIPC : next_state = S_RST; //FIX ME 
+    OP_STYPE : next_state = S_MEMADDR;
+    OP_RTYPE : next_state = S_EXE_R;
+    //OP_LUI   : next_state = S_RST; //FIX ME
+    OP_BTYPE : next_state = S_BRANCH;
+    //OP_JALR  : next_state = S_RST; //FIX ME
+    OP_JAL   : next_state = S_JAL;
+    default: next_state = S_RST;
+    endcase
+  end
+  S_JAL : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    rd_addr = 5'b0;
+    // shift in new pc
+    PC_ena = 1'b1;
+    result_slt = OLD_RESULT;
+
+  //setup alu for write back data
+    alu_a_slt = OLD_PC_REG;
+    alu_b_slt = FOUR;
+    alu_control = ALU_ADD;
+
+  // next state
+  next_state = S_ALUWB;
+  end
+  S_EXE_I : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = 5'b0;
+
+    alu_a_slt = RS1_DATA_REG;
+    alu_b_slt = IMM_EXT;
+    //set alu
+    case(funct3)
+    FUNCT3_ADD          : alu_control = ALU_ADD;
+    FUNCT3_SLL          : alu_control = ALU_SLL;
+    FUNCT3_SLT          : alu_control = ALU_SLT;
+    FUNCT3_SLTU         : alu_control = ALU_SLTU;
+    FUNCT3_XOR          : alu_control = ALU_XOR;
+    FUNCT3_SHIFT_RIGHT  : alu_control = funct7[5] ? ALU_SRA : ALU_SRL;
+    FUNCT3_OR           : alu_control = ALU_OR;
+    FUNCT3_AND          : alu_control = ALU_AND;
+    endcase
   
+  // next state
+  next_state = S_ALUWB;
+  end
+  S_EXE_R : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = 5'b0;
+
+    alu_a_slt = RS1_DATA_REG;
+    alu_b_slt = RS2_DATA_REG;
+    //set alu
+    case(funct3)
+    FUNCT3_ADD          : alu_control = ALU_ADD;
+    FUNCT3_SLL          : alu_control = ALU_SLL;
+    FUNCT3_SLT          : alu_control = ALU_SLT;
+    FUNCT3_SLTU         : alu_control = ALU_SLTU;
+    FUNCT3_XOR          : alu_control = ALU_XOR;
+    FUNCT3_SHIFT_RIGHT  : alu_control = funct7[5] ? ALU_SRA : ALU_SRL;
+    FUNCT3_OR           : alu_control = ALU_OR;
+    FUNCT3_AND          : alu_control = ALU_AND;
+    endcase
+
+    // next state
+    next_state = S_ALUWB;
+  end
+  S_MEMADDR : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = 5'b0;
+    alu_a_slt = RS1_DATA_REG;
+    alu_b_slt = IMM_EXT;
+    alu_control = ALU_ADD;
+    case(op)
+      OP_LTYPE: next_state = S_MEMRD;
+      OP_STYPE: next_state = S_MEMWR;
+      default: next_state = S_RST;
+    endcase
+  end
+  S_BRANCH : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    //PC_ena = 1'b0;
+    rd_addr = 5'b0;
+    case(funct3)
+    FUNCT3_BNE: PC_ena = ~ equal;
+    
+    default:PC_ena = equal;
+    endcase
+
+    next_state = S_FETCH;
+  end
+  S_ALUWB : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    result_slt = OLD_RESULT;
+    rd_addr = rd;
+    next_state = S_FETCH;
+  end
+  S_MEMWR : begin
+    mem_wr_ena = 1'b1;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = 5'b0;
+    addr_slt = MEM_SRC_RESULT;
+
+    next_state = S_FETCH;
+
+  end
+  S_MEMRD : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = 5'b0;
+    addr_slt = MEM_SRC_RESULT;
+
+    next_state = S_MEMWB;
+  end
+  S_MEMWB : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = rd;
+    result_slt = MEMORY;
+
+    next_state = S_FETCH;
+
+  end
+  default : begin
+    mem_wr_ena = 1'b0;
+    IR_write = 1'b0;
+    PC_ena = 1'b0;
+    rd_addr = 5'b0;
+  end
+  endcase
 end
 
 enum logic[3:0]{
@@ -199,33 +405,22 @@ enum logic[3:0]{
   S_EXE_R,
   S_MEMADDR,
   S_BRANCH,
-  S_WRBK,
+  S_ALUWB,
   S_MEMWR,
   S_MEMRD,
-  S_MEMWB
-} state
+  S_MEMWB,
+  S_RST
+} state, next_state;
 
 
 always_ff @(posedge clk) begin : control_fsm
   if(rst) begin
-    
+    state <= S_RST;
   end
   else begin
-    case(state)
-    S_FETCH : state <= S_DECODE;
-    S_DECODE begin
-      
+    if(ena) begin
+      state <= next_state;
     end
-    S_JAL
-    S_EXE_I
-    S_EXE_R
-    S_MEMADDR
-    S_BRANCH
-    S_WRBK
-    S_MEMWR
-    S_MEMRD
-    S_MEMWB
-    endcase
   end
 end
 
